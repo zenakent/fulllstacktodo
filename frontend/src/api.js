@@ -37,9 +37,9 @@ export async function completeTodo(id) {
   return res.data;
 }
 
-export async function editTodo(id) {
+export async function editTodo(id, val) {
   const editURL = `${APIURL}/${id}/edit`;
   console.log(editURL);
-  let res = await axios.put(editURL);
+  let res = await axios.put(editURL, { name: val });
   return res.data;
 }

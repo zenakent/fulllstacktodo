@@ -40,18 +40,21 @@ router.put("/api/todos/:todoId/update", async function(req, res) {
     console.log(todo);
     res.json(todo);
   } catch (error) {
-    console.log(err);
+    console.log(error);
   }
 });
 
 //update/edit todo
 router.put("/api/todos/:todoId/edit", async function(req, res) {
   try {
-    let todo = await Todo.findByIdAndUpdate(req.params.todoId);
+    let todo = await Todo.findOneAndUpdate(req.params.todoId, req.body);
     console.log(todo);
+    todo.name = req.body.name;
+    todo.save();
+    console.log("=====" + todo);
     res.json(todo);
   } catch (error) {
-    console.log(err);
+    console.log(error);
   }
 });
 

@@ -15,6 +15,7 @@ mongoose.connect("mongodb+srv://test:test1@cluster0-lqhsl.mongodb.net/", {
   dbName: "test",
   useNewUrlParser: true
 });
+mongoose.set("useFindAndModify", false);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
