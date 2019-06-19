@@ -47,7 +47,7 @@ router.put("/api/todos/:todoId/update", async function(req, res) {
 //update/edit todo
 router.put("/api/todos/:todoId/edit", async function(req, res) {
   try {
-    let todo = await Todo.findOneAndUpdate(req.params.todoId, req.body);
+    let todo = await Todo.findByIdAndUpdate(req.params.todoId, req.body);
     console.log(todo);
     todo.name = req.body.name;
     todo.save();

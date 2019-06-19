@@ -44,7 +44,6 @@ class TodoList extends Component {
 
   async editTodo(id, updatedTask) {
     let res = await apiCall.editTodo(id, updatedTask);
-    console.log(res);
     const editedTodo = this.state.todos.map(todo => {
       if (todo.id === res.id) {
         return { ...todo, task: updatedTask };
