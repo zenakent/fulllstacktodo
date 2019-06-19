@@ -2,8 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Todo = require("../models/todo");
 
+//
+router.get("/", function(req, res, next) {
+  res.render("index", { title: "Express" });
+});
+
 //api todo
-router.get("/api/todo", async function(req, res) {
+router.get("/api/todos", async function(req, res) {
   // Todo.find({}, function(err, foundTodos) {
   //   res.json(foundTodos);
   // });
@@ -16,7 +21,7 @@ router.get("/api/todo", async function(req, res) {
 });
 
 //create todo
-router.post("/api/todo", async function(req, res) {
+router.post("/api/todos", async function(req, res) {
   try {
     let todo = await Todo.create(req.body);
     console.log(todo);
@@ -26,8 +31,8 @@ router.post("/api/todo", async function(req, res) {
   }
 });
 
-//update todo
-router.get("/:todoId/update", async function(req, res) {
+//complete todo
+router.put("/api/todos/:todoId/update", async function(req, res) {
   try {
     let todo = await Todo.findById(req.params.todoId);
     todo.completed = !todo.completed;
@@ -39,8 +44,19 @@ router.get("/:todoId/update", async function(req, res) {
   }
 });
 
+//update/edit todo
+router.put("/api/todos/:todoId/edit", async function(req, res) {
+  try {
+    let todo = await Todo.findByIdAndUpdate(req.params.todoId);
+    console.log(todo);
+    res.json(todo);
+  } catch (error) {
+    console.log(err);
+  }
+});
+
 //delete todo
-router.delete("/:todoId", async function(req, res) {
+router.delete("/api/todos/:todoId", async function(req, res) {
   try {
     let todo = await Todo.findByIdAndDelete(req.params.todoId);
     res.json({ message: "deleted the todo" });
